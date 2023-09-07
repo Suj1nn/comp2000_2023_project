@@ -1,3 +1,5 @@
+import java.util.Optional;
+
 public class Seller {
     private String name;
     private Inventory inventory;
@@ -21,12 +23,12 @@ public class Seller {
      * @param itemName
      * @return The sold item.
      */
-    public ItemInterface sell(String itemName) {
-        ItemInterface result = removeItem(itemName);
-        if (result != null) {
+    public Optional<ItemInterface> sell(String itemName) {
+        Optional<ItemInterface> result = removeItem(itemName);
+        if (result.isPresent()) {
             return result;
         }
-        return null;
+        return Optional.empty();
     }
 
     /**
@@ -42,7 +44,7 @@ public class Seller {
      * the `itemName` parameter.
      * @param itemName
      */
-    public ItemInterface removeItem(String itemName) {
+    public Optional<ItemInterface> removeItem(String itemName) {
         return inventory.removeOne(itemName);
     }
     
