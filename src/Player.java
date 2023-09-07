@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Player {
     private String name;
@@ -34,13 +35,13 @@ public class Player {
      * the item is removed and returned.
      * @param itemName
      */
-    public ItemInterface sell(String itemName) {
-        ItemInterface i = removeItem(itemName);
-        if (i != null) {
-            money += Double.valueOf(i.getInventoryTableRow().getColumnThree().trim());
+    public Optional<ItemInterface> sell(String itemName) {
+        Optional<ItemInterface> i = removeItem(itemName);
+        if (i.isPresent()) {
+            money += Double.valueOf(i.get().getInventoryTableRow().getColumnThree().trim());
             return i;
         }
-        return null;
+        return Optional.empty();
     }
 
     /**
@@ -56,7 +57,7 @@ public class Player {
      * the `itemName` parameter.
      * @param itemName
      */
-    public ItemInterface removeItem(String itemName) {
+    public Optional<ItemInterface> removeItem(String itemName) {
         return inventory.removeOne(itemName);
     }
 
