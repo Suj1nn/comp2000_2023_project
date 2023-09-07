@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 
 public class Basket implements BasketInterface {
+
     ArrayList<ItemInterface> items;
     ArrayList<Integer> quantities;
+    int noIndex = -1;
 
     public Basket() {
         items = new ArrayList<>();
@@ -15,7 +17,7 @@ public class Basket implements BasketInterface {
                 return i;
             }
         }
-        return -1;
+        return noIndex;
     }
 
     public ArrayList<CartTableRow> getRowData() {
@@ -31,14 +33,14 @@ public class Basket implements BasketInterface {
     @Override
     public void setItemQuantity(String itemName, int qty) {
         int index = itemIndex(itemName);
-        if (index != -1) {
+        if (index != noIndex) {
             quantities.set(index, qty);
         }
     }
 
     public void add(ItemInterface item) {
         int index = itemIndex(item.getInventoryTableRow().getColumnOne());
-        if (index != -1) {
+        if (index != noIndex) {
             quantities.set(index, quantities.get(index) + 1);
         } else {
             items.add(item);
@@ -50,7 +52,7 @@ public class Basket implements BasketInterface {
     public void remove(String itemName) {
         int index = itemIndex(itemName);
 
-        if (index != -1) {
+        if (index != noIndex) {
             items.remove(index);
             quantities.remove(index);
         }
