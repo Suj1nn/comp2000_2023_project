@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Basket implements BasketInterface {
 
@@ -66,12 +67,12 @@ public class Basket implements BasketInterface {
         // Remove/sell items from the `from` parameter
         for (int i = 0; i < items.size() && !rollback; i++) {
             for (int q = 0; q < quantities.get(i); q++) {
-                ItemInterface saleItem = from.sell(items.get(i).getInventoryTableRow().getColumnOne());
-                if (saleItem == null) {
+                Optional<ItemInterface> saleItem = from.sell(items.get(i).getInventoryTableRow().getColumnOne());
+                if (saleItem.isEmpty()) {
                     rollback = true;
                     break;  // Trigger transaction rollback
                 }
-                transactionItems.add(saleItem);
+                transactionItems.add(saleItem.get());
             }
         }
 
@@ -93,12 +94,12 @@ public class Basket implements BasketInterface {
         // Remove/sell items from the `from` parameter
         for (int i = 0; i < items.size() && !rollback; i++) {
             for (int q = 0; q < quantities.get(i); q++) {
-                ItemInterface saleItem = from.sell(items.get(i).getInventoryTableRow().getColumnOne());
-                if (saleItem == null) {
+                Optional<ItemInterface> saleItem = from.sell(items.get(i).getInventoryTableRow().getColumnOne());
+                if (saleItem.isEmpty()) {
                     rollback = true;
                     break;  // Trigger transaction rollback
                 }
-                transactionItems.add(saleItem);
+                transactionItems.add(saleItem.get());
             }
         }
         if (rollback) {
