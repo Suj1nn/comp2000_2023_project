@@ -4,11 +4,12 @@ public class Basket implements BasketInterface {
 
     ArrayList<ItemInterface> items;
     ArrayList<Integer> quantities;
-    int noIndex = -1;
+    int noIndex;
 
     public Basket() {
         items = new ArrayList<>();
         quantities = new ArrayList<>();
+        noIndex = -1;
     }
 
     public int itemIndex(String itemName) {
