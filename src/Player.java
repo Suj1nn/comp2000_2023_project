@@ -1,17 +1,15 @@
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class Player {
-    private String name;
-    private Inventory inventory;
+public class Player extends Entity{
+
     private double money;
     private Basket shoppingBasket;
     private Inventory viewOfStoreInventory;
 
-    public Player(String playerName, double startingMoney, Inventory startingInventory) {
-        name = playerName;
+    public Player(String name, double startingMoney, Inventory startingInventory) {
+        super(name, startingInventory);
         money = startingMoney;
-        inventory = startingInventory;
         shoppingBasket = new Basket();
     }
 
@@ -25,7 +23,7 @@ public class Player {
         if (Double.valueOf(item.getInventoryTableRow().getColumnThree().trim()) > money) {
             return;
         }
-        inventory.addOne(item);
+        getInventory().addOne(item);
         money -= Double.valueOf(item.getInventoryTableRow().getColumnThree().trim());
     }
 
@@ -42,31 +40,6 @@ public class Player {
             return i;
         }
         return Optional.empty();
-    }
-
-    /**
-     * Adds an item to the held Inventory.
-     * @param item
-     */
-    public void addItem(ItemInterface item) {
-        inventory.addOne(item);
-    }
-
-    /**
-     * Removes and returns an item from the held Inventory that matches
-     * the `itemName` parameter.
-     * @param itemName
-     */
-    public Optional<ItemInterface> removeItem(String itemName) {
-        return inventory.removeOne(itemName);
-    }
-
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Basket getShoppingBasket() {
