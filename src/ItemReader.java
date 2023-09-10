@@ -23,11 +23,11 @@ public class ItemReader {
             expiration = Integer.valueOf(expiry);
         }
         if (name.equals("Tomato")) {
-            return new Tomato(expiration);
+            return new Tomato(name, description, value, expiration);
         } else if (name.equals("Rock")) {
-            return new Rock(expiration);
+            return new Rock(name, description, value, expiration);
         } else if (name.equals("Wand")) {
-            return new Wand(expiration);
+            return new Wand(name, description, value, expiration);
         } else {
             System.err.println("Bad Item read in ItemReader");
             System.exit(0);

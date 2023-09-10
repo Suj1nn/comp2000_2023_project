@@ -1,17 +1,23 @@
 public class Tomato implements ItemInterface {
-    int expiry;
 
-    public Tomato(int expiry) {
+    String name;
+    String description;
+    double value;
+    int expiry;
+    
+    public Tomato(String name, String description, double value, int expiry) {
+        this.name = name;
+        this.description = description;
+        this.value = value;
         this.expiry = expiry;
     }
-
     @Override
     public InventoryTableRow getInventoryTableRow() {
-        return new InventoryTableRow("Tomato", "Red and round", "15.0", expiry + "");
+        return new InventoryTableRow(name, description, String.valueOf(value), expiry + "");
     }
 
     @Override
     public CartTableRow getCartRow(String column3) {
-        return new CartTableRow("Tomato", "15.0", column3);
+        return new CartTableRow(name, String.valueOf(value), column3);
     }
 }
